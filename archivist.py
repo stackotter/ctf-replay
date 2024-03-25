@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 import argparse
 import dotenv
 import fsspec
@@ -9,7 +10,7 @@ dotenv.load_dotenv()
 git_username = os.environ.get("GIT_USERNAME")
 git_token = os.environ.get("GIT_TOKEN")
 
-parser = argparse.ArgumentParser("manager")
+parser = argparse.ArgumentParser("archivist.py")
 parser.add_argument("ctf", type=str)
 parser.add_argument("year", type=str)
 parser.add_argument("--category", type=str, default=None)

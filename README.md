@@ -1,12 +1,17 @@
-# `ctf-replay`
+# ctf-replay
 
 Allows downloading of individual ctfs and challenges from the massive `sajjadium/ctf-archives` repo.
 
+## Dependencies
+
+```
+pip3 install -r requirements.txt
+```
+
 ## Usage
 
-```console
-$ python3 archivist.py --help                       
-usage: manager [-h] [--category CATEGORY] [--challenge CHALLENGE] ctf year
+```
+usage: archivist.py [-h] [--category CATEGORY] [--challenge CHALLENGE] ctf year
 
 positional arguments:
   ctf
