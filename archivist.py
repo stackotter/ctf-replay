@@ -3,6 +3,12 @@ import argparse
 import dotenv
 import fsspec
 import os
+from shutil import rmtree
+
+GREEN = '\033[32m'
+RESET = '\033[0m'
+YELLOW = '\033[93m'
+LIGHTBLUE = '\033[94m'
 
 dotenv.load_dotenv()
 
@@ -15,6 +21,7 @@ parser.add_argument("ctf", type=str)
 parser.add_argument("year", type=str)
 parser.add_argument("--category", type=str, default=None)
 parser.add_argument("--challenge", type=str, default=None)
+parser.add_argument("-m", "--mode", type=str, default="overwrite", choices=["overwrite", "skip", "duplicate"], help="overwrite(default): overwrite existing files,\nskip: skip existing files,\nduplicate: rename existing files")
 args = parser.parse_args()
 
 fs = fsspec.filesystem(
@@ -40,9 +47,18 @@ else:
         path = challenge_path
 
 for challenge_path in challenge_paths:
-    print(challenge_path)
+    if args.mode == "skip" and os.path.exists(challenge_path):
+            print(f"{LIGHTBLUE}[skip]{RESET} " + challenge_path)
+            continue
+    elif args.mode == "duplicate" and os.path.exists(challenge_path):
+            if os.path.exists(challenge_path + "_copy"):
+                rmtree(challenge_path + "_copy")
+            os.rename(challenge_path, challenge_path + "_copy")
+            print(f"{YELLOW}[duplicate]{RESET} " + challenge_path + "_copy")
+
     os.makedirs(challenge_path, exist_ok=True)
     fs.get(fs.ls(challenge_path), challenge_path, recursive=True)
+    print(f"{GREEN}[download]{RESET} " + challenge_path)
 
 try:
     os.remove("latest")
