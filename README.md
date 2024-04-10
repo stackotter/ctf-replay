@@ -11,7 +11,7 @@ pip3 install -r requirements.txt
 ## Usage
 
 ```
-usage: archivist.py [-h] [--category CATEGORY] [--challenge CHALLENGE] ctf year
+usage: archivist.py [-h] [--category CATEGORY] [--challenge CHALLENGE] [-m {skip,overwrite,backup,prompt}] ctf year
 
 positional arguments:
   ctf
@@ -21,6 +21,12 @@ options:
   -h, --help            show this help message and exit
   --category CATEGORY
   --challenge CHALLENGE
+  -m {skip,overwrite,backup,prompt}, --mode {skip,overwrite,backup,prompt}
+                        
+                                                    skip(default): skip existing files, 
+                                                    overwrite: overwrite existing files, 
+                                                    backup: backup existing files, 
+                                                    prompt: prompt for each file
 ```
 
 ## Planned
