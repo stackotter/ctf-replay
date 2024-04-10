@@ -15,19 +15,20 @@ dotenv.load_dotenv()
 git_username = os.environ.get("GIT_USERNAME")
 git_token = os.environ.get("GIT_TOKEN")
 
+
 parser = argparse.ArgumentParser("archivist.py", formatter_class=argparse.RawTextHelpFormatter)
 parser.add_argument("ctf", type=str)
 parser.add_argument("year", type=str)
 parser.add_argument("--category", type=str, default=None)
 parser.add_argument("--challenge", type=str, default=None)
-parser.add_argument("-m", "--mode", type=str, default="skip", 
-                    choices=["skip","overwrite", "backup", "prompt"], 
-                    help='''
-                            skip(default): skip existing files, 
-                            overwrite: overwrite existing files, 
-                            backup: backup existing files, 
-                            prompt: prompt for each file
-                         ''')
+parser.add_argument(
+    "-m", "--mode", type=str, default="skip", 
+    choices=["skip","overwrite", "backup", "prompt"], 
+    help='''skip(default): skip existing files, 
+overwrite: overwrite existing files, 
+backup: backup existing files, 
+prompt: prompt for each file'''
+)
 
 args = parser.parse_args()
 
